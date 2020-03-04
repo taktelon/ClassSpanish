@@ -16,11 +16,11 @@ public class MainActivity extends AppCompatActivity implements VerbFragment.OnLi
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.addToBackStack(null);
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.addToBackStack(null);
             int columnCount = 1;
-            fragmentTransaction.replace(R.id.fragment_container, VerbFragment.newInstance(columnCount));
-            fragmentTransaction.commit();
+            transaction.replace(R.id.fragment_container, VerbFragment.newInstance(columnCount));
+            transaction.commit();
         }
 
     }
@@ -29,5 +29,10 @@ public class MainActivity extends AppCompatActivity implements VerbFragment.OnLi
     @Override
     public void onListFragmentInteraction(VerbItem item) {
         System.out.println(item.verb + " is pressed!");
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.fragment_container, VerbFormFragment.newInstance(item.verb, "world"));
+        transaction.commit();
     }
 }

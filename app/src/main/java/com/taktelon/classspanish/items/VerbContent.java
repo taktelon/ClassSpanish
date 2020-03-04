@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class VerbContent {
 
-    private static String[] verbs = {"llmar","comer","vivir"};
+    private static String[] verbs = {"llamar","comer","vivir"};
     private static String[] means = {"speak","eat","live"};
 
     /**
