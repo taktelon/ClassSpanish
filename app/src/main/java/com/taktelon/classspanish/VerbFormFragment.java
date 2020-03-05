@@ -24,6 +24,7 @@ public class VerbFormFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mVerb;
     private String mParam2;
+    private VerbFormProvider formProvider;
 
     public VerbFormFragment() {
         // Required empty public constructor
@@ -54,6 +55,7 @@ public class VerbFormFragment extends Fragment {
             mVerb = getArguments().getString(ARG_VERB);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        formProvider = new VerbFormProvider();
     }
 
     @Override
@@ -61,8 +63,19 @@ public class VerbFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_verb_form, container, false);
-        TextView verb_yo = (TextView)view.findViewById(R.id.verb_yo);
-        verb_yo.setText(mVerb);
+        VerbFormProvider.VerbForm verbForm = formProvider.getVerbForm(mVerb);
+        if (verbForm != null) {
+            TextView verbYo = (TextView) view.findViewById(R.id.verb_yo);
+            TextView verbVos = (TextView) view.findViewById(R.id.verb_vos);
+            TextView verbEl = (TextView) view.findViewById(R.id.verb_el);
+            TextView verbNos = (TextView) view.findViewById(R.id.verb_nos);
+            TextView verbUds = (TextView) view.findViewById(R.id.verb_uds);
+            verbYo.setText(verbForm.getFormYo());
+            verbVos.setText(verbForm.getFormVos());
+            verbEl.setText(verbForm.getFormEl());
+            verbNos.setText(verbForm.getFormNosotros());
+            verbUds.setText(verbForm.getFormUstedes());
+        }
         return view;
     }
 }
