@@ -1,18 +1,36 @@
 package com.taktelon.classspanish.items;
 
-public class VerbItem {
-    public final String id;
-    public final String verb;
-    public final String meaning;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    public VerbItem(String id, String verb, String meaning) {
-        this.id = id;
-        this.verb = verb;
-        this.meaning = meaning;
+@Entity(tableName = "verbs")
+public class VerbItem {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private final int mId;
+    @ColumnInfo(name = "verb")
+    private final String mVerb;
+    @ColumnInfo(name = "meaning")
+    private final String mMeaning;
+
+    public VerbItem(int id, String verb, String meaning) {
+        mId = id;
+        mVerb = verb;
+        mMeaning = meaning;
     }
 
-    @Override
-    public String toString() {
-        return verb;
+    public int getId() {
+        return mId;
+    }
+
+    public String getVerb() {
+        return mVerb;
+    }
+
+    public String getMeaning() {
+        return mMeaning;
     }
 }

@@ -24,7 +24,7 @@ public class VerbContent {
     /**
      * A map of sample (dummy) items, by ID.
      */
-    public static final Map<String, VerbItem> ITEM_MAP = new HashMap<String, VerbItem>();
+    public static final Map<Integer, VerbItem> ITEM_MAP = new HashMap<Integer, VerbItem>();
 
     static {
         // Add some sample items.
@@ -35,10 +35,10 @@ public class VerbContent {
 
     private static void addItem(VerbItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
+        ITEM_MAP.put(item.getId(), item);
     }
 
     private static VerbItem createVerbItem(int position) {
-        return new VerbItem(String.valueOf(position), verbs[position], means[position]);
+        return new VerbItem(position, verbs[position], means[position]);
     }
 }

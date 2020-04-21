@@ -4,16 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.taktelon.classspanish.items.VerbContent;
 import com.taktelon.classspanish.items.VerbItem;
+import com.taktelon.classspanish.items.VerbRepository;
+
+import java.util.List;
+
+import static android.os.Build.ID;
 
 /**
  * A fragment representing a list of Items.
@@ -21,7 +28,7 @@ import com.taktelon.classspanish.items.VerbItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class VerbFragment extends Fragment {
+public class VerbListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -33,13 +40,13 @@ public class VerbFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public VerbFragment() {
+    public VerbListFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static VerbFragment newInstance(int columnCount) {
-        VerbFragment fragment = new VerbFragment();
+    public static VerbListFragment newInstance(int columnCount) {
+        VerbListFragment fragment = new VerbListFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -71,6 +78,43 @@ public class VerbFragment extends Fragment {
             }
             recyclerView.setAdapter(new VerbRecyclerViewAdapter(VerbContent.ITEMS, mListener));
         }
+
+        Log.d("DEBUG", "onCreateView()");
+
+        final VerbRepository verbRepository = new VerbRepository(getActivity().getApplicationContext());
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List<VerbItem> verbs = verbRepository.getVerbs();
+                for (VerbItem verbItem : verbs) {
+                    Log.d("DEBUG", "ID     : " + verbItem.getId());
+                    Log.d("DEBUG", "Verb   : " + verbItem.getVerb());
+                    Log.d("DEBUG", "Meaning: " + verbItem.getMeaning());
+                }
+            }
+        }).start();
+
+//        verbRepository.getVerbs().observe(getActivity(), new Observer<List<VerbItem>>() {
+//
+//            @Override
+//            public void onChanged(List<VerbItem> verbItems) {
+//                for (VerbItem verbItem : verbItems) {
+//                    Log.d("DEBUG", "ID     : " + verbItem.getId());
+//                    Log.d("DEBUG", "Verb   : " + verbItem.getVerb());
+//                    Log.d("DEBUG", "Meaning: " + verbItem.getMeaning());
+//                }
+//            }
+//        });
+//        verbRepository.insertVerb(101, "poder", "be able to");
+//        new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                Log.d("DEBUG", "onCreateView():Create repository");
+//                verbRepository.insertVerb(100, "tener", "have");
+//            }
+//        }).start();
+
         return view;
     }
 

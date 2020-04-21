@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.taktelon.classspanish.VerbFragment.OnListFragmentInteractionListener;
+import com.taktelon.classspanish.VerbListFragment.OnListFragmentInteractionListener;
 import com.taktelon.classspanish.items.VerbItem;
 
 import java.util.List;
@@ -37,9 +37,9 @@ public class VerbRecyclerViewAdapter extends RecyclerView.Adapter<VerbRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mVerbView.setText(mValues.get(position).verb);
-        holder.mMeaningView.setText(mValues.get(position).meaning);
+        holder.mIdView.setText(Integer.toString(mValues.get(position).getId()));
+        holder.mVerbView.setText(mValues.get(position).getVerb());
+        holder.mMeaningView.setText(mValues.get(position).getMeaning());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
