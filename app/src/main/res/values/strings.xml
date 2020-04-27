@@ -3,4 +3,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_verb_list">verbs</string>
+    <string name="title_verb_detail">Verb Detail</string>
+    <string name="title_activity_verb_detail">VerbDetail</string>
+    <string name="tab_text_1">Present</string>
+    <string name="tab_text_2">Past1</string>
+    <string name="tab_text_3">Past2</string>
 </resources>
